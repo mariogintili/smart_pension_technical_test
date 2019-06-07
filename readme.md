@@ -52,3 +52,12 @@ Most Unique Page views
 /home 7
 /help_page/1 6
 ```
+
+The example of the requirements signal that a path that is a child of another path should be treated as different paths, e,g:
+
+```
+/about/2 and
+/about are different
+```
+
+This has been accounted for during the implementation.
