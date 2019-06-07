@@ -1,9 +1,10 @@
 module LogParser
   class MostUniquePageViews
+    include LineValidation
     def call(lines:, errors:)
       grouped_by_unique_view = lines.reduce({}) do |memo, line|
         begin
-          if valid?(line: line, errors: errors)
+          if valid_line?(line: line, errors: errors)
             process_line(line: line, memo: memo)
           else
             errors.push(StandardError.new("Unable to parse #{line}"))
@@ -38,12 +39,6 @@ module LogParser
       else
         memo[path][ip] = 1
       end
-    end
-
-    def valid?(line:, errors:)
-      splitted = line.split(" ")
-      path = splitted[0]
-      path.match(PATH_REGEX)
     end
   end
 end
